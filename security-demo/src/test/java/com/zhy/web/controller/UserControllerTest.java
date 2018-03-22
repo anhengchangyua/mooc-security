@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -14,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Date;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -44,6 +46,7 @@ public class UserControllerTest {
         System.out.println(result);
     }
 
+    //测试获取用户信息
     @Test
     public void whenGetInfoSuccess() throws Exception {
         String result = mockMvc.perform(get("/user/1")
@@ -58,12 +61,13 @@ public class UserControllerTest {
     //测试id不为数字时。
     @Test
     public void whenGetInfoFail() throws Exception {
-        mockMvc.perform(get("/user/a")
+        mockMvc.perform(get("/user/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().is4xxClientError());
 
     }
 
+    // 创建user成功
     @Test
     public void whenCreateSuccess() throws Exception {
 
@@ -79,6 +83,16 @@ public class UserControllerTest {
         System.out.println(reuslt);
     }
 
+    //文件上传
+
+    @Test
+    public void whenUploadSuccess() throws Exception {
+        String result = mockMvc.perform(fileUpload("/file")
+                .file(new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes("UTF-8"))))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        System.out.println(result);
+    }
 
 }
 
