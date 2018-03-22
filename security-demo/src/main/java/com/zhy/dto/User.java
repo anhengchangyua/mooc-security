@@ -1,15 +1,15 @@
 package com.zhy.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.zhy.validator.MyConstraint;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 public class User {
 
     private String id;
-
-    private Date birthday;
 
     @JsonView(UserSimpleView.class)
     public Date getBirthday() {
@@ -23,7 +23,10 @@ public class User {
     public interface  UserSimpleView{};
     public interface  UserDetailView extends UserSimpleView{};
 
+    
+    @MyConstraint(message = "测试")
     private String username;
+
     @JsonView(UserSimpleView.class)
     public String getId() {
         return id;
@@ -33,8 +36,11 @@ public class User {
         this.id = id;
     }
 
-    @NotBlank
+    @NotBlank(message = "密码不能为空")
     private String password;
+
+    @Past(message = "生日必须是过去的时间")
+    private Date birthday;
 
     @JsonView(UserSimpleView.class)
     public String getPassword() {
