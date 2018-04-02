@@ -25,13 +25,13 @@ import java.io.IOException;
 public class BrowserSecurityController {
 
     private Logger logger = LoggerFactory.getLogger(BrowserSecurityController.class);
+
     // 判断引发跳转的请求
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Autowired
     private SecurityProperties securityProperties;
-
 
     // security 自己判断是否
     @RequestMapping("/authentication/require")
