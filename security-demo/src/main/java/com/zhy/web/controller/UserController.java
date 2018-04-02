@@ -81,7 +81,7 @@ public class UserController {
 
     @DeleteMapping("/{id:\\d+}")
     public void delete(@PathVariable String id) {
-        System.out.println(id);
+            System.out.println(id);
     }
 
 }
