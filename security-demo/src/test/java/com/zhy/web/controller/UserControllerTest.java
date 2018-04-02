@@ -94,7 +94,6 @@ public class UserControllerTest {
     }
 
     //文件上传
-
     @Test
     public void whenUploadSuccess() throws Exception {
         String result = mockMvc.perform(fileUpload("/file")

@@ -1,5 +1,6 @@
 package com.zhy.security.browser;
 
+import com.zhy.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    SecurityProperties securityProperties;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -19,12 +23,14 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/login.html")
+                .loginPage("/authentication/require")
                 // 让security知道需要用usernamepasswordAthentication处理
                 .loginProcessingUrl("/authentication/form")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login.html").permitAll()
+                .antMatchers("/authentication/require"
+                        ,securityProperties.getBrowser().getLoginPage())
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
