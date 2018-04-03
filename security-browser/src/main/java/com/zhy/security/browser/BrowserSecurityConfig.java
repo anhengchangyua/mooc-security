@@ -1,17 +1,31 @@
 package com.zhy.security.browser;
 
+import com.zhy.security.core.properties.BrowserProperties;
 import com.zhy.security.core.properties.SecurityProperties;
 import com.zhy.security.core.validate.code.ValidateCodeFilter;
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.token.KeyBasedPersistenceTokenService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
 
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    UserDetailsService userDetailsService;
+
+    @Autowired
+    DataSource dataSource;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -22,6 +36,16 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler imoocAuthenctiationFailureHandler;
 
+    //配置repository
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        //添加数据源
+        tokenRepository.setDataSource(dataSource);
+        //启动的时候创建表
+//        tokenRepository.setCreateTableOnStartup(true);
+        return tokenRepository;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,6 +64,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/authentication/form")//让 usernamepasswordAthenticationfilter 知道当处理这个请求的时候,需要做的配置
                 .successHandler(imoocAuthenticationSuccessHandler)
                 .failureHandler(imoocAuthenctiationFailureHandler)
+                .and()
+                //记住我功能
+                .rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                .userDetailsService(userDetailsService)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/authentication/require"
