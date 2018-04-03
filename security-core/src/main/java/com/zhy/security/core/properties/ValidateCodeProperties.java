@@ -2,13 +2,13 @@ package com.zhy.security.core.properties;
 
 public class ValidateCodeProperties {
 
-    private ImageCodeProperties imageCodeProperties = new ImageCodeProperties();
+    private ImageCodeProperties image = new ImageCodeProperties();
 
-    public ImageCodeProperties getImageCodeProperties() {
-        return imageCodeProperties;
+    public ImageCodeProperties getImage() {
+        return image;
     }
 
-    public void setImageCodeProperties(ImageCodeProperties imageCodeProperties) {
-        this.imageCodeProperties = imageCodeProperties;
+    public void setImage(ImageCodeProperties image) {
+        this.image = image;
     }
 }
