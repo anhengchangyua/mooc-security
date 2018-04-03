@@ -1,8 +1,8 @@
 package com.zhy.security.browser;
 
 
-import com.zhy.security.browser.support.SimpleResponse;
 import com.zhy.security.core.properties.SecurityProperties;
+import com.zhy.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class BrowserSecurityController {
     @Autowired
     private SecurityProperties securityProperties;
 
-    // security 自己判断是否
+    // security 自己判断是否需要认证
     @RequestMapping("/authentication/require")
     // 返回状态码
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)

@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.zhy.security.browser.authentication;
+package com.zhy.security.app.authtication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

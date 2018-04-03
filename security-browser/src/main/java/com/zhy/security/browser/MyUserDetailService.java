@@ -12,8 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /*
- *  处理用户信息获取的逻辑
- * */
+ *  点击form提交表单，处理用户信息获取的逻辑 ，使用UserDetailsService接口。
+ *
+ */
 @Component
 public class MyUserDetailService implements UserDetailsService {
 

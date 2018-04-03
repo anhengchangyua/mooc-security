@@ -1,4 +1,4 @@
-package com.zhy.security.browser.support;
+package com.zhy.security.core.support;
 
 public class SimpleResponse {
 
