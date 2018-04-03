@@ -1,6 +1,8 @@
 package com.zhy.security.core.validate.code;
 
 
+import com.zhy.security.core.properties.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,10 @@ import java.util.Random;
 
 @RestController
 public class ValidateCodeController {
+
+
+    @Autowired
+    SecurityProperties securityProperties;
 
     public  static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 

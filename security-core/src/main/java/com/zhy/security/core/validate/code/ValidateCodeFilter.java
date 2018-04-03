@@ -2,6 +2,7 @@ package com.zhy.security.core.validate.code;
 
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.sun.xml.internal.fastinfoset.util.ValueArrayResourceException;
+import com.zhy.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -21,15 +22,8 @@ import java.io.IOException;
 public class ValidateCodeFilter extends OncePerRequestFilter {
 
 
+
     private AuthenticationFailureHandler authenticationFailureHandler;
-
-    public AuthenticationFailureHandler getAuthenticationFailureHandler() {
-        return authenticationFailureHandler;
-    }
-
-    public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
-        this.authenticationFailureHandler = authenticationFailureHandler;
-    }
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
@@ -81,4 +75,15 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
         sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
 
     }
+
+
+
+    public AuthenticationFailureHandler getAuthenticationFailureHandler() {
+        return authenticationFailureHandler;
+    }
+
+    public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
+        this.authenticationFailureHandler = authenticationFailureHandler;
+    }
+
 }

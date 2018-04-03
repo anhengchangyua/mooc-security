@@ -10,6 +10,16 @@ public class SecurityProperties {
     // 读取imooc.security.browser
     private BrowserProperties browser = new BrowserProperties();
 
+    public ValidateCodeProperties getCode() {
+        return code;
+    }
+
+    public void setCode(ValidateCodeProperties code) {
+        this.code = code;
+    }
+
+    private ValidateCodeProperties code = new ValidateCodeProperties();
+
     public BrowserProperties getBrowser() {
         return browser;
     }
