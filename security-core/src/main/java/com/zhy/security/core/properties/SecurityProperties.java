@@ -9,6 +9,15 @@ public class SecurityProperties {
 
     // 读取imooc.security.browser
     private BrowserProperties browser = new BrowserProperties();
+    private SocialProperties social = new SocialProperties();
+
+    public SocialProperties getSocial() {
+        return social;
+    }
+
+    public void setSocial(SocialProperties social) {
+        this.social = social;
+    }
 
     public ValidateCodeProperties getCode() {
         return code;

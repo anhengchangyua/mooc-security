@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
+
 //    执行第六步 获取用户信息 需要有令牌token
 //    private final String accessToken;  令牌token
 //    private RestTemplate restTemplate; 发送http请求
-
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
     private static final String URL_GET_OPENID = "https://graph.qq.com/oauth2.0/me?access_token=%s";
 
@@ -40,7 +40,6 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         String result = getRestTemplate().getForObject(url, String.class);
 
         System.out.println(result);
-
 
         QQUserInfo userInfo = null;
         try {

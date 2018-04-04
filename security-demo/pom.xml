@@ -19,7 +19,7 @@
         <!--</dependency>-->
         <dependency>
             <groupId>com.zhy.security</groupId>
-            <artifactId>security-app</artifactId>
+            <artifactId>security-browser</artifactId>
             <version>${zhy.security.version}</version>
         </dependency>
         <dependency>

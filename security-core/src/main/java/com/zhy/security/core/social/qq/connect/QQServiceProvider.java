@@ -7,7 +7,7 @@ import org.springframework.social.oauth2.OAuth2Template;
 
 
 /**
- * 服务提供商 提供 template请求 api
+ * 服务提供商相关 提供 template请求 api
  */
 
 public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
