@@ -43,6 +43,7 @@ public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFa
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
         } else {
+            //不是json 走默认的跳转
             super.onAuthenticationFailure(request, response, exception);
         }
 
