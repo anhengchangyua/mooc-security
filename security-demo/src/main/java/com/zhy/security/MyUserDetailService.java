@@ -1,4 +1,4 @@
-package com.zhy.security.browser;
+package com.zhy.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SocialUser;
+import org.springframework.social.security.SocialUserDetails;
+import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 /*
@@ -16,7 +19,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class MyUserDetailService implements UserDetailsService {
+public class MyUserDetailService implements UserDetailsService ,SocialUserDetailsService{
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -31,6 +34,21 @@ public class MyUserDetailService implements UserDetailsService {
 
         // 根据查找到的用户信息判断是否冻结
         return new User(username, encoder.encode("123456"),
+                true,
+                true,
+                true,
+                true,
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+    }
+
+    @Override
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+
+        //根据用户名获取用户信息
+        logger.info(" 社交登录ID" + userId);
+
+        // 根据查找到的用户信息判断是否冻结
+        return new SocialUser(userId, encoder.encode("123456"),
                 true,
                 true,
                 true,
