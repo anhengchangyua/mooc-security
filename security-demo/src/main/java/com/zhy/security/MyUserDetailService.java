@@ -19,7 +19,11 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+<<<<<<< HEAD:security-demo/src/main/java/com/zhy/security/MyUserDetailService.java
 public class MyUserDetailService implements UserDetailsService, SocialUserDetailsService {
+=======
+public class MyUserDetailService implements UserDetailsService ,SocialUserDetailsService{
+>>>>>>> f891eae53efffc86ccdc969ae2f58a0d7395b385:security-demo/src/main/java/com/zhy/security/MyUserDetailService.java
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -34,6 +38,21 @@ public class MyUserDetailService implements UserDetailsService, SocialUserDetail
 
         // 根据查找到的用户信息判断是否冻结
         return new User(username, encoder.encode("123456"), // 从数据库中获取的密码，校验交给框架来处理
+                true,
+                true,
+                true,
+                true,
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+    }
+
+    @Override
+    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
+
+        //根据用户名获取用户信息
+        logger.info(" 社交登录ID" + userId);
+
+        // 根据查找到的用户信息判断是否冻结
+        return new SocialUser(userId, encoder.encode("123456"),
                 true,
                 true,
                 true,

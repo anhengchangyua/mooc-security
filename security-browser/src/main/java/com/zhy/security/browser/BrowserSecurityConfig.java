@@ -63,6 +63,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         //设置验证码filter 在usernamepasswordAuthentication之前
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
+<<<<<<< HEAD
                 .loginPage("/authentication/require")//设置登录页面，跳转到controller
                 //在提交表单的时候 让security知道需要用usernamepasswordAthenticationfilter处理请求
                 .loginProcessingUrl("/authentication/form")//让 usernamepasswordAthenticationfilter 知道当处理这个请求的时候,需要做的配置
@@ -72,11 +73,20 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(socialConfigurer)
                 .and()
                 //记住我功能
+=======
+                    .loginPage("/authentication/require")//设置登录页面，跳转到一个controller方法上
+                    //在提交表单的时候 让security知道需要用usernamepasswordAthenticationfilter处理请求
+                    .loginProcessingUrl("/authentication/form")//让 usernamepasswordAthenticationfilter 知道当处理这个请求的时候,需要做的配置
+                    .successHandler(imoocAuthenticationSuccessHandler)
+                    .failureHandler(imoocAuthenctiationFailureHandler)
+                    .and()
+                    //记住我功能
+>>>>>>> f891eae53efffc86ccdc969ae2f58a0d7395b385
                 .rememberMe()
-                .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                .userDetailsService(userDetailsService)
-                .and()
+                    .tokenRepository(persistentTokenRepository())
+                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                    .userDetailsService(userDetailsService)
+                    .and()
                 .authorizeRequests()
                 .antMatchers("/authentication/require"
                         , securityProperties.getBrowser().getLoginPage(),

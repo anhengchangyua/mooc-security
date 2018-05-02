@@ -3,6 +3,8 @@ package com.zhy.security.core.validate.code;
 
 import com.zhy.security.core.properties.SecurityProperties;
 
+import com.zhy.security.core.validate.code.sms.DefaultSmsCodeSender;
+import com.zhy.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Bean;
@@ -22,4 +24,10 @@ public class ValidateCodeBeanConfig {
         return codeGenerator;
     }
 
+    @Bean
+//    @ConditionalOnMissingBean(name = "smsCodeGenerator")//此注解是为先在容器中找imageCodeGenerator，如果有不走
+    public SmsCodeSender smsCodeGenerator() {
+
+        return new DefaultSmsCodeSender();
+    }
 }
