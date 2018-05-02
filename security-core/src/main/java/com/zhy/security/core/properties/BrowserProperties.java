@@ -1,6 +1,17 @@
 package com.zhy.security.core.properties;
 
 public class BrowserProperties {
+
+    private String signUpUrl = "/imooc-SignUp.html";
+
+    public String getSignUpUrl() {
+        return signUpUrl;
+    }
+
+    public void setSignUpUrl(String signUpUrl) {
+        this.signUpUrl = signUpUrl;
+    }
+
     private String loginPage = "/imooc-SignIn.html";
 
     private LoginResponseType loginType = LoginResponseType.JSON;
