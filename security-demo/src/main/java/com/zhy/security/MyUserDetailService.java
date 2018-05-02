@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class MyUserDetailService implements UserDetailsService ,SocialUserDetailsService{
+public class MyUserDetailService implements UserDetailsService, SocialUserDetailsService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -29,11 +29,11 @@ public class MyUserDetailService implements UserDetailsService ,SocialUserDetail
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        //根据用户名获取用户信息
+        // 根据用户名获取用户信息
         logger.info(" 用户名" + username);
 
         // 根据查找到的用户信息判断是否冻结
-        return new User(username, encoder.encode("123456"),
+        return new User(username, encoder.encode("123456"), // 从数据库中获取的密码，校验交给框架来处理
                 true,
                 true,
                 true,

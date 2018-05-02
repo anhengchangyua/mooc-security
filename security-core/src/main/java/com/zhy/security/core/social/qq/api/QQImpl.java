@@ -8,6 +8,7 @@ import org.springframework.social.oauth2.TokenStrategy;
 //    执行第六步 获取用户信息 需要有令牌token
 //    private final String accessToken;  令牌token
 //    private RestTemplate restTemplate; 发送http请求
+//    所有的api都继承了AbstractOAuth2ApiBinding
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
     private static final String URL_GET_OPENID = "https://graph.qq.com/oauth2.0/me?access_token=%s";
 
@@ -23,11 +24,11 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         // 自动为请求添加token参数
         super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER);
         this.appId = appId;
-        // String.format 替换掉 URL_GET_OPENID %S
+        // String.format 替换掉 URL_GET_OPENID 中的 %S
         String url = String.format(URL_GET_OPENID, accessToken);
-        // 获取用户信息
+        // 请求获取获取用户信息
         String result = getRestTemplate().getForObject(url, String.class);
-        System.out.println(result);
+        System.out.println("获取的openId： "+result);
         // 读取openId
         this.openId = StringUtils.substringBetween(result, "\"openid\":\"", "\"}");
     }
@@ -43,6 +44,7 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
         QQUserInfo userInfo = null;
         try {
+            //objectMapper 转成对象
             userInfo = objectMapper.readValue(result, QQUserInfo.class);
             userInfo.setOpenId(openId);
             return userInfo;

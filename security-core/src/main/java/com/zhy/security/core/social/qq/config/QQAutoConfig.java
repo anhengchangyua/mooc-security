@@ -1,7 +1,8 @@
-package com.zhy.security.core.social.qq.connect;
+package com.zhy.security.core.social.qq.config;
 
 
 import com.zhy.security.core.properties.SecurityProperties;
+import com.zhy.security.core.social.qq.connect.QQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter;
@@ -10,7 +11,7 @@ import org.springframework.social.connect.ConnectionFactory;
 
 
 @Configuration
-//此注解是为当imooc.security.social.qq。app-id下有值的时候才起作用
+//此注解是为当imooc.security.social.qq.app-id下有值的时候才起作用
 @ConditionalOnProperty(prefix = "imooc.security.social.qq", name = "app-id")
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 

@@ -69,7 +69,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                 return;
             }
 
-
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);
