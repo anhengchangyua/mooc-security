@@ -80,7 +80,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         String codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), "imageCode");
 
         if (StringUtils.isBlank(codeInRequest)) {
-            throw new ValidateCodeException("验证码不能为空");
+            throw new ValidateCodeException(" 验证码不能为空!");
         }
 
         if (codeInsession == null) {
@@ -89,7 +89,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
         if (codeInsession.isExpried()) {
             sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
-            throw new ValidateCodeException("验证码不存在");
+            throw new ValidateCodeException("验证码过期");
         }
 
         if (!StringUtils.equals(codeInsession.getCode(), codeInRequest)) {
